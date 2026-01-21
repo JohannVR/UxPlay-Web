@@ -2,6 +2,8 @@ FROM ghcr.io/linuxserver/baseimage-selkies:alpine323
 
 ENV HARDEN_DESKTOP=true \
     HARDEN_OPENBOX=true \
+    TITLE=UxPlay \
+    RESTART_APP=true \
     AIRPLAY_NAME="UxPlay-Web"
 
 RUN apk add --no-cache \
