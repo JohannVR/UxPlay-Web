@@ -124,3 +124,13 @@ This image is optimized for size while maintaining the heavy dependencies requir
 
 ---
 
+## 📜 Credits
+
+This project is made possible by the following open-source works:
+
+* **[UxPlay](https://github.com/FDH2/UxPlay):** The core AirPlay server implementation.
+* **[Selkies Base Image](https://github.com/linuxserver/docker-baseimage-selkies):** Provided by the LinuxServer.io team, enabling high-performance WebRTC/X11 streaming to the browser.
+* **[GStreamer](https://gstreamer.freedesktop.org/):** The multimedia framework used for audio and video decoding.
+* **[Avahi](https://www.avahi.org/):** Providing the mDNS/DNS-SD implementation for device discovery.
+
+---
