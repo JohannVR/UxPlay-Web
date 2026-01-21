@@ -1,0 +1,13 @@
+services:
+  uxplay-web:
+    image: uxplay-web:v0.1.0
+    container_name: uxplay-web
+    network_mode: host
+    restart: unless-stopped
+    environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/Berlin
+        - AIRPLAY_NAME=uxplay-web
+    devices:
+      - /dev/dri:/dev/dri
