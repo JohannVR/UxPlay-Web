@@ -1,6 +1,6 @@
 services:
   uxplay-web:
-    image: uxplay-web:v0.1.0
+    image: johannvr/uxplay-web:latest
     container_name: uxplay-web
     network_mode: host
     restart: unless-stopped

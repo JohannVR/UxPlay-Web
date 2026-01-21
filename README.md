@@ -86,7 +86,7 @@ This `docker-compose.yml` includes the necessary device mapping and host network
 ```yaml
 services:
   uxplay-web:
-    image: uxplay-selkies:latest # Change to your built image name or use pre-build image
+    image: johannvr/uxplay-web:latest # Change to your built image name or use pre-build image
     container_name: uxplay-web
     network_mode: host
     restart: unless-stopped
