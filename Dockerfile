@@ -23,6 +23,8 @@ RUN mkdir -p /var/run/dbus /var/run/avahi-daemon && \
 # 2. Create S6 service for D-Bus (Essential for Avahi)
 RUN mkdir -p /etc/services.d/dbus && \
     echo -e "#!/usr/bin/with-contenv bash\n\
+    # Cleanup stale pid file if it exists\n\
+    rm -f /var/run/dbus/pid /run/dbus/dbus.pid\n\
     exec dbus-daemon --system --nofork" > /etc/services.d/dbus/run && \
     chmod +x /etc/services.d/dbus/run
 
