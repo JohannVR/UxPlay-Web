@@ -1,4 +1,4 @@
-name: ci
+name: manual-build
 
 on:
   workflow_dispatch:
