@@ -45,4 +45,4 @@ RUN mkdir -p /defaults && \
 
 # 5. Add Healthcheck
 HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
-    CMD sh -c "curl -f http://localhost:${CUSTOM_PORT}/ || exit 1"
+    CMD wget --spider -qO- http://localhost:${CUSTOM_PORT}/ || exit 1
