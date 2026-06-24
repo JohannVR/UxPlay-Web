@@ -6,6 +6,7 @@ ENV HARDEN_DESKTOP=true \
     RESTART_APP=true \
     AIRPLAY_NAME="UxPlay-Web"
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache \
     avahi \
     dbus \
@@ -21,6 +22,7 @@ RUN mkdir -p /var/run/dbus /var/run/avahi-daemon && \
     sed -i 's/#enable-dbus=yes/enable-dbus=yes/g' /etc/avahi/avahi-daemon.conf
 
 # 2. Create S6 service for D-Bus (Essential for Avahi)
+# hadolint ignore=SC3037
 RUN mkdir -p /etc/services.d/dbus && \
     echo -e "#!/usr/bin/with-contenv bash\n\
     # Cleanup stale pid file if it exists\n\
@@ -29,6 +31,7 @@ RUN mkdir -p /etc/services.d/dbus && \
     chmod +x /etc/services.d/dbus/run
 
 # 3. Create S6 service for Avahi-daemon
+# hadolint ignore=SC3037
 RUN mkdir -p /etc/services.d/avahi && \
     echo -e "#!/usr/bin/with-contenv bash\n\
     # Wait for dbus socket to exist before starting\n\
@@ -39,3 +42,7 @@ RUN mkdir -p /etc/services.d/avahi && \
 # 4. Configure Autostart for UxPlay
 RUN mkdir -p /defaults && \
     echo "sleep 5 && uxplay -n \"\${AIRPLAY_NAME}\" -nh -fs" > /defaults/autostart
+
+# 5. Add Healthcheck
+HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
+    CMD sh -c "curl -f http://localhost:${CUSTOM_PORT}/ || exit 1"
