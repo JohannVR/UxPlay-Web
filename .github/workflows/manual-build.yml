@@ -6,7 +6,7 @@ on:
       tag:
         description: 'Docker image tag (e.g., 1.0.0)'
         required: true
-        default: 'latest'
+        default: '1.0.0'
       is_latest:
         description: 'Also tag this build as "latest"?'
         type: boolean
