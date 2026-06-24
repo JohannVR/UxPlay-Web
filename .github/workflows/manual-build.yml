@@ -7,6 +7,11 @@ on:
         description: 'Docker image tag (e.g., 1.0.0)'
         required: true
         default: 'latest'
+      is_latest:
+        description: 'Also tag this build as "latest"?'
+        type: boolean
+        required: true
+        default: false
 
 jobs:
   docker-build-and-push:
@@ -34,12 +39,25 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Calculate Docker tags
+        id: meta
+        run: |
+          TAG="${{ github.event.inputs.tag }}"
+          IS_LATEST="${{ github.event.inputs.is_latest }}"
+          
+          # Base tags using the provided version
+          TAGS="johannvr/uxplay-web:${TAG},ghcr.io/johannvr/uxplay-web:${TAG}"
+          
+          # Conditionally append 'latest' tags if the boolean is true
+          if [ "$IS_LATEST" = "true" ]; then
+            TAGS="${TAGS},johannvr/uxplay-web:latest,ghcr.io/johannvr/uxplay-web:latest"
+          fi
+          
+          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
           push: true
-          # Dynamically reads the manual input, falling back to 'latest' on a standard git push
-          tags: |
-            johannvr/uxplay-web:${{ github.event.inputs.tag || 'latest' }}
-            ghcr.io/johannvr/uxplay-web:${{ github.event.inputs.tag || 'latest' }}
+          tags: ${{ steps.meta.outputs.tags }}
