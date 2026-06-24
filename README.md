@@ -47,7 +47,7 @@ docker run -d \
 2. **Reverse Proxy (Optional):** For a more permanent setup, it is recommended to use a reverse proxy (e.g., Nginx, Traefik) pointing to port 3000 to manage SSL certificates.
 3. **Start Mirroring:** On your iOS device, open the Control Center, tap **Screen Mirroring**, and select **"Docker-Mirror"**.
 
-Open your Browser: 
+Open your Browser:
 
 Reverse Proxy (Optional): For a more permanent setup, it is recommended to use a reverse proxy (e.g., Nginx, Traefik) pointing to port 3000 to manage SSL certificates.
 
