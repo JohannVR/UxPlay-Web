@@ -5,6 +5,9 @@ on:
 
 jobs:
   docker-build-and-push:
+    # Runs if it's a manual trigger OR if the git commit message starts with 'release:'
+    if: |
+      startsWith(github.event.head_commit.message, 'release:')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -35,7 +38,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            johannvr/uxplay-web:latest
-            johannvr/uxplay-web:1.0.0
-            ghcr.io/johannvr/uxplay-web:latest
-            ghcr.io/johannvr/uxplay-web:1.0.0
+            johannvr/uxplay-web:${{ github.event.inputs.tag || 'latest' }}
+            ghcr.io/johannvr/uxplay-web:${{ github.event.inputs.tag || 'latest' }}
